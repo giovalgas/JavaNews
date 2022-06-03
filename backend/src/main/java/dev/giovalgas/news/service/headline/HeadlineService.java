@@ -8,11 +8,11 @@ import java.util.List;
 @Service
 public interface HeadlineService {
 
-  void deleteHeadline(Headline headline); //TODO -> add authentication
+  void deleteHeadline(String id); //TODO -> add authentication
 
-  void createHeadline(Headline headline);
+  Headline createHeadline(Headline headline);
 
-  void editHeadline(String id, Headline alteredHeadline);
+  Headline editHeadline(String id, Headline alteredHeadline);
 
   Headline getHeadlineById(String id);
 

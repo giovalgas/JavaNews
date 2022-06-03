@@ -1,5 +1,6 @@
 package dev.giovalgas.news.service.headline;
 
+import dev.giovalgas.news.exception.AlreadyExistsException;
 import dev.giovalgas.news.exception.NotFoundException;
 import dev.giovalgas.news.model.Headline;
 import dev.giovalgas.news.repository.HeadlineRepository;
@@ -15,18 +16,28 @@ public class HeadlineProvider implements HeadlineService {
   private final HeadlineRepository headlineRepository;
 
   @Override
-  public void deleteHeadline(Headline headline) {
-    headlineRepository.deleteById(headline.getId());
+  public void deleteHeadline(String id) {
+
+    if (!headlineRepository.existsById(id)) {
+      throw new NotFoundException("Did not find a headline by id: " + id);
+    }
+
+    headlineRepository.deleteById(id);
   }
 
   @Override
-  public void createHeadline(Headline headline) {
-    headlineRepository.insert(headline);
+  public Headline createHeadline(Headline headline) {
+
+    if (headlineRepository.existsById(headline.getId())) {
+      throw new AlreadyExistsException("The id: " + headline.getId() + " is already taken.");
+    }
+
+    return headlineRepository.insert(headline);
   }
 
   @Override
-  public void editHeadline(String id, Headline alteredHeadline) {
-    headlineRepository.findById(id)
+  public Headline editHeadline(String id, Headline alteredHeadline) {
+    return headlineRepository.findById(id)
             .map(headline -> {
               headline.setAuthorName(alteredHeadline.getAuthorName());
               headline.setTitle(alteredHeadline.getTitle());
