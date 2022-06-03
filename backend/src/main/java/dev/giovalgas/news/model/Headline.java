@@ -14,7 +14,7 @@ import java.util.List;
 public class Headline {
 
   @Id
-  private String id;
+  private final String id;
 
   private String title;
   private String thumbnailUrl;
