@@ -2,6 +2,7 @@ package dev.giovalgas.news.model;
 
 import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.commonmark.renderer.html.HtmlRenderer;
 import org.springframework.data.annotation.Id;
@@ -14,7 +15,7 @@ import java.util.List;
 public class Headline {
 
   @Id
-  private final String id;
+  private String id;
 
   private String title;
   private String thumbnailUrl;

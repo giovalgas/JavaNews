@@ -4,6 +4,7 @@ import dev.giovalgas.news.model.Headline;
 import dev.giovalgas.news.service.headline.HeadlineService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,12 +28,12 @@ public class HeadlineController {
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<Headline> editHeadline(@PathVariable String id, @RequestPart Headline alteredHeadline) {
+  public ResponseEntity<Headline> editHeadline(@PathVariable String id, @RequestBody Headline alteredHeadline) {
     return ResponseEntity.ok(headlineService.editHeadline(id, alteredHeadline));
   }
 
-  @PostMapping
-  public ResponseEntity<Headline> createHeadline(@RequestPart Headline headline) {
+  @PostMapping()
+  public ResponseEntity<Headline> createHeadline(@RequestBody Headline headline) {
     return new ResponseEntity<>(headlineService.createHeadline(headline), HttpStatus.CREATED);
   }
 
